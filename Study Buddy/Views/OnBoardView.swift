@@ -81,14 +81,15 @@ struct OnBoardView: View {
 
                     // NavigationLink to Home
                     NavigationLink(
-                        destination: HomeView(),
+                        destination: MainTabView(),
                         isActive: $navigateToHome,
                         label: {
                             EmptyView()
                         })
                         .hidden()
+                        .navigationBarBackButtonHidden(true)
                 }
-            }.navigationBarBackButtonHidden(true)
+            }
         }
     }
     func saveUserToCoreData(id: String, email: String?, fullName: PersonNameComponents?) {
