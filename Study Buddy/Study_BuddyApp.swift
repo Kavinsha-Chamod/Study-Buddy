@@ -13,7 +13,7 @@ struct Study_BuddyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnBoardView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
