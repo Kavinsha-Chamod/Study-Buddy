@@ -11,6 +11,7 @@ import AuthenticationServices
 
 struct OnBoardView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
     @State private var navigateToHome = false
 
     var body: some View {
@@ -22,10 +23,15 @@ struct OnBoardView: View {
                     OnboardImageView()
                     GuestButtonView(navigateToHome: $navigateToHome)
                     AppleSignInButton(navigateToHome: $navigateToHome)
-                    NavigationLink(destination: MainTabView(currentUserId: "000433.2b8f204455454466b29789a0266b3139.0742"), isActive: $navigateToHome) {
+                    NavigationLink(destination: MainTabView(currentUserId: loggedInUserId), isActive: $navigateToHome) {
                         EmptyView()
                     }
                     .hidden()
+                    .onAppear {
+                        if !loggedInUserId.isEmpty {
+                            navigateToHome = true
+                        }
+                    }
                 }
                 .navigationBarBackButtonHidden(true)
             }
@@ -60,6 +66,7 @@ private struct OnboardImageView: View {
 
 private struct GuestButtonView: View {
     @Binding var navigateToHome: Bool
+    @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
 
     var body: some View {
         ButtonView(
@@ -68,14 +75,42 @@ private struct GuestButtonView: View {
             foregroundColor: .white,
             borderColor: Color(red: 74 / 255, green: 144 / 255, blue: 226 / 255)
         ) {
-            navigateToHome = true
+            let context = PersistenceController.shared.container.viewContext
+            let guestId = "guest_user_001"
+
+            let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %@", guestId)
+
+            do {
+                let users = try context.fetch(fetchRequest)
+                if users.isEmpty {
+                    let guestUser = User(context: context)
+                    guestUser.id = guestId
+                    guestUser.email = "guest@gmail.com"
+                    guestUser.firstName = "Guest"
+                    guestUser.lastName = "User"
+
+                    try context.save()
+                    print("Guest user saved")
+                } else {
+                    print("Guest user already exists")
+                }
+
+                loggedInUserId = guestId
+                navigateToHome = true
+
+            } catch {
+                print("Failed to save guest user: \(error)")
+            }
         }
         .padding(.top, 30)
     }
 }
 
+
 private struct AppleSignInButton: View {
     @Binding var navigateToHome: Bool
+    @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
 
     var body: some View {
         SignInWithAppleButton(
@@ -96,6 +131,7 @@ private struct AppleSignInButton: View {
                         print("Full Name: \((fullName?.givenName ?? "") + " " + (fullName?.familyName ?? ""))")
 
                         saveUserToCoreData(id: userId, email: email, fullName: fullName)
+                        loggedInUserId = userId
                         navigateToHome = true
                     }
                 case .failure(let error):

@@ -10,6 +10,7 @@ import CoreData
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @AppStorage("loggedInUserId") private var currentUserId: String = ""
     
     var body: some View {
         ZStack {
@@ -39,19 +40,19 @@ struct HomeView: View {
                         title: "Smart Quizzes",
                         imageName: "OnBoardIcon",
                         description: "Test your knowledge with AI-generated quizzes.",
-                        destination: ScanDocView()
+                        destination: AccountView()
                     )
                     DashboardTitlesView(
                         title: "Import PDF Files",
                         imageName: "OnBoardIcon",
                         description: "Import the pdf files and summarize contents.",
-                        destination: ScanDocView()
+                        destination: FilesView(currentUserId: currentUserId)
                     )
                     DashboardTitlesView(
                         title: "Focus Mode",
                         imageName: "OnBoardIcon",
                         description: "Set a timer for distraction-free study sessions.",
-                        destination: ScanDocView()
+                        destination: AccountView()
                     )
                 }
             }.frame(maxWidth: .infinity)

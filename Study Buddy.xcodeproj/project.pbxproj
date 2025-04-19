@@ -10,22 +10,9 @@
 		6D4654B62DABEA2500278E73 /* Study Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6D10D4242DB34506003AD386 /* Exceptions for "Study Buddy" folder in "Study Buddy" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Study-Buddy-Info.plist",
-			);
-			target = 6D4654B52DABEA2500278E73 /* Study Buddy */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6D4654B82DABEA2500278E73 /* Study Buddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6D10D4242DB34506003AD386 /* Exceptions for "Study Buddy" folder in "Study Buddy" target */,
-			);
 			path = "Study Buddy";
 			sourceTree = "<group>";
 		};
