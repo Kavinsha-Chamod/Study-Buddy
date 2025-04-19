@@ -11,18 +11,19 @@ import LocalAuthentication
 
 struct FilesView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @State private var selectedNote: Note?
     @State private var searchText = ""
     @State private var filterOption = "All"
     @State private var showingEditor = false
-
+    @State private var navigateToDetail = false
+    
     private var currentUserId: String
     private var fetchRequest: FetchRequest<Note>
     private var notes: FetchedResults<Note> { fetchRequest.wrappedValue }
-
+    
     private let filterOptions = ["All", "Scanned", "Imported"]
-
+    
     init(currentUserId: String) {
         self.currentUserId = currentUserId
         self.fetchRequest = FetchRequest<Note>(
@@ -31,7 +32,7 @@ struct FilesView: View {
             animation: .default
         )
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -42,7 +43,7 @@ struct FilesView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-
+                
                 List {
                     let filteredNotes = notes.filter { note in
                         (searchText.isEmpty || (note.title?.localizedCaseInsensitiveContains(searchText) ?? false)) &&
@@ -50,31 +51,38 @@ struct FilesView: View {
                          (filterOption == "Scanned" && note.isScanned) ||
                          (filterOption == "Imported" && note.isImported))
                     }
-
+                    
                     let pinnedNotes = filteredNotes.filter { $0.isPinned }
                     let regularNotes = filteredNotes.filter { !$0.isPinned }
-
+                    
                     if !pinnedNotes.isEmpty {
                         Section("Pinned") {
                             ForEach(pinnedNotes) { noteRow($0) }
                         }
                     }
-
+                    
                     Section("Notes") {
                         ForEach(regularNotes) { noteRow($0) }
                     }
                 }
                 .listStyle(.insetGrouped)
                 .searchable(text: $searchText)
-                .navigationTitle("Notes")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            selectedNote = nil
-                            showingEditor = true
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                        }
+                
+                NavigationLink(
+                    destination: selectedNote.map { NoteDetailView(note: $0) },
+                    isActive: $navigateToDetail,
+                    label: { EmptyView() }
+                )
+                .hidden()
+            }
+            .navigationTitle("Notes")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        selectedNote = nil
+                        showingEditor = true
+                    } label: {
+                        Image(systemName: "square.and.pencil")
                     }
                 }
             }
@@ -84,11 +92,18 @@ struct FilesView: View {
             }
         }
     }
-
     // MARK: - Individual Note Row
     @ViewBuilder
     private func noteRow(_ note: Note) -> some View {
-        NavigationLink(destination: NoteDetailView(note: note)) {
+        Button {
+            if note.isLocked {
+                authenticateAndOpen(note: note)
+            } else {
+                selectedNote = note
+                navigateToDetail = true
+            }
+        }
+         label: {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Text(note.title ?? "Untitled")
@@ -98,7 +113,7 @@ struct FilesView: View {
                             .foregroundColor(.red)
                     }
                 }
-                Text(note.content ?? "")
+                Text(note.isLocked ? "" : (note.content ?? ""))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(2)
@@ -110,7 +125,7 @@ struct FilesView: View {
             } label: {
                 Label("Pin", systemImage: note.isPinned ? "pin.slash" : "pin")
             }.tint(.yellow)
-
+            
             Button(role: .destructive) {
                 delete(note)
             } label: {
@@ -125,17 +140,33 @@ struct FilesView: View {
             }.tint(.blue)
         }
     }
-
+    
     // MARK: - Actions
     private func togglePin(_ note: Note) {
         note.isPinned.toggle()
         saveContext()
     }
-
+    
+    private func authenticateAndOpen(note: Note) {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock this note") { success, _ in
+                if success {
+                    DispatchQueue.main.async {
+                        selectedNote = note
+                        navigateToDetail = true
+                    }
+                }
+            }
+        }
+    }
+    
     private func toggleLock(_ note: Note) {
         let context = LAContext()
         var error: NSError?
-
+        
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock note") { success, authError in
                 if success {
@@ -147,12 +178,12 @@ struct FilesView: View {
             }
         }
     }
-
+    
     private func delete(_ note: Note) {
         viewContext.delete(note)
         saveContext()
     }
-
+    
     private func saveContext() {
         do {
             try viewContext.save()
