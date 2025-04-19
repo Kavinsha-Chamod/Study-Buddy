@@ -22,14 +22,16 @@ struct BlurView: UIViewRepresentable {
 
 struct MainTabView: View {
     @State private var selectedTab = 0
-
+    var currentUserId: String
+    
     var body: some View {
         NavigationStack {
+            
             ZStack {
                 // Add a blur effect to mimic polished UI
                 BlurView(style: .systemUltraThinMaterial)
                     .ignoresSafeArea()
-
+                
                 TabView(selection: $selectedTab) {
                     HomeView()
                         .tabItem {
@@ -45,14 +47,14 @@ struct MainTabView: View {
                         }
                         .tag(1)
 
-                    NewNoteView()
+                    NewNoteView(currentUserId: currentUserId)
                         .tabItem {
                             Image(systemName: "document.badge.plus.fill")
                             Text("New Note")
                         }
                         .tag(2)
                     
-                    FilesView()
+                    FilesView(currentUserId: currentUserId)
                         .tabItem {
                             Image(systemName: "folder.fill")
                             Text("Files")
@@ -67,11 +69,17 @@ struct MainTabView: View {
                         .tag(4)
                 }
                 .accentColor(.blue)
+            }.onAppear {
+                console()
             }
         }.navigationBarBackButtonHidden(true)
+    }
+    func console(){
+        print("User Id", currentUserId);
     }
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(currentUserId:"000433.2b8f204455454466b29789a0266b3139.0742")
+//    MainTabView(currentUserId: "000433.0742")
 }

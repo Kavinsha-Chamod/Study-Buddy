@@ -10,9 +10,22 @@
 		6D4654B62DABEA2500278E73 /* Study Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6D10D4242DB34506003AD386 /* Exceptions for "Study Buddy" folder in "Study Buddy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Study-Buddy-Info.plist",
+			);
+			target = 6D4654B52DABEA2500278E73 /* Study Buddy */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6D4654B82DABEA2500278E73 /* Study Buddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6D10D4242DB34506003AD386 /* Exceptions for "Study Buddy" folder in "Study Buddy" target */,
+			);
 			path = "Study Buddy";
 			sourceTree = "<group>";
 		};
@@ -256,6 +269,8 @@
 				DEVELOPMENT_TEAM = 5MFCUG2773;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -286,6 +301,8 @@
 				DEVELOPMENT_TEAM = 5MFCUG2773;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
