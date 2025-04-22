@@ -13,6 +13,7 @@ struct OnBoardView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
     @State private var navigateToHome = false
+    @Binding var hasCompletedFocusSetup: Bool
 
     var body: some View {
         NavigationStack {
@@ -23,7 +24,7 @@ struct OnBoardView: View {
                     OnboardImageView()
                     GuestButtonView(navigateToHome: $navigateToHome)
                     AppleSignInButton(navigateToHome: $navigateToHome)
-                    NavigationLink(destination: MainTabView(currentUserId: loggedInUserId), isActive: $navigateToHome) {
+                    NavigationLink(destination: focusDestination) {
                         EmptyView()
                     }
                     .hidden()
@@ -35,6 +36,14 @@ struct OnBoardView: View {
                 }
                 .navigationBarBackButtonHidden(true)
             }
+        }
+    }
+    @ViewBuilder
+    var focusDestination: some View {
+        if hasCompletedFocusSetup {
+            FocusModeView()
+        } else {
+            FocusSetupView(hasCompletedFocusSetup: $hasCompletedFocusSetup)
         }
     }
 }
@@ -172,7 +181,4 @@ private struct AppleSignInButton: View {
     }
 }
 
-#Preview {
-    OnBoardView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-}
+

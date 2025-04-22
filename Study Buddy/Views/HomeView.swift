@@ -11,6 +11,7 @@ import CoreData
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("loggedInUserId") private var currentUserId: String = ""
+    @Binding var hasCompletedFocusSetup: Bool
     
     var body: some View {
         ZStack {
@@ -52,7 +53,9 @@ struct HomeView: View {
                         title: "Focus Mode",
                         imageName: "OnBoardIcon",
                         description: "Set a timer for distraction-free study sessions.",
-                        destination: AccountView()
+                        destination: hasCompletedFocusSetup
+                                ? AnyView(FocusModeView())
+                                : AnyView(FocusSetupView(hasCompletedFocusSetup: $hasCompletedFocusSetup))
                     )
                 }
             }.frame(maxWidth: .infinity)
@@ -61,9 +64,13 @@ struct HomeView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-}
-
-#Preview {
-    HomeView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+    private func loadFocusSetupState() {
+            let fetchRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
+            if let settings = try? viewContext.fetch(fetchRequest).first {
+                hasCompletedFocusSetup = settings.hasCompletedFocusSetup
+                print("HomeView loaded: hasCompletedFocusSetup = \(hasCompletedFocusSetup)")
+            } else {
+                print("HomeView: No Settings entity found")
+            }
+        }
 }

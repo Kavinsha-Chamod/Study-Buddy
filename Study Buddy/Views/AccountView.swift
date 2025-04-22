@@ -10,25 +10,47 @@ import CoreData
 
 struct AccountView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @AppStorage("loggedInUserId") var currentUserId: String?
+    @State private var navigateToOnboard = false
+    @State private var hasCompletedFocusSetup: Bool = false
 
     var body: some View {
-        ZStack {
-            Color.white
-                .edgesIgnoringSafeArea(.all)
+        NavigationStack {
+            ZStack {
+                Color.white.ignoresSafeArea()
 
-            VStack{
-                Text("Account")
-                    .font(.system(size: 34, weight: .bold, design: .default))
-                    .foregroundColor(.black)
-                    .padding(.top, 20)
-                    .padding(.leading, 20)
-                Spacer()
-              }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                VStack(alignment: .leading) {
+                    Text("Account")
+                        .font(.system(size: 34, weight: .bold))
+                        .padding(.top, 20)
+
+                    Spacer()
+
+                    Button(action: logoutUser) {
+                        Text("Log Out")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 40)
+
+                    // Navigation trigger
+                    NavigationLink(destination: OnBoardView(hasCompletedFocusSetup: $hasCompletedFocusSetup), isActive: $navigateToOnboard) {
+                        EmptyView()
+                    }
+                    .hidden()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
         }
     }
-}
 
-#Preview {
-    AccountView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+    private func logoutUser() {
+        currentUserId = nil
+        print("Logged out: user session cleared.")
+    }
 }

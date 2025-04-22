@@ -20,9 +20,11 @@ struct BlurView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
 
+
 struct MainTabView: View {
     @State private var selectedTab = 0
     var currentUserId: String
+    @Binding var hasCompletedFocusSetup: Bool
     
     var body: some View {
         NavigationStack {
@@ -33,7 +35,7 @@ struct MainTabView: View {
                     .ignoresSafeArea()
                 
                 TabView(selection: $selectedTab) {
-                    HomeView()
+                    HomeView(hasCompletedFocusSetup: $hasCompletedFocusSetup)
                         .tabItem {
                             Image(systemName: "house.fill")
                             Text("Home")
@@ -75,11 +77,6 @@ struct MainTabView: View {
         }.navigationBarBackButtonHidden(true)
     }
     func console(){
-        print("User Id", currentUserId);
+        print("User Id: currentUserId =", currentUserId ?? "nil")
     }
-}
-
-#Preview {
-    MainTabView(currentUserId:"000433.2b8f204455454466b29789a0266b3139.0742")
-//    MainTabView(currentUserId: "000433.0742")
 }

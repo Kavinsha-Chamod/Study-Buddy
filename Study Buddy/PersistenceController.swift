@@ -23,4 +23,10 @@ struct PersistenceController {
             }
         }
     }
+    func markFocusSetupComplete(context: NSManagedObjectContext) {
+            let fetchRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
+            let settings = try? context.fetch(fetchRequest).first ?? Settings(context: context)
+            settings?.hasCompletedFocusSetup = true
+            try? context.save()
+        }
 }
