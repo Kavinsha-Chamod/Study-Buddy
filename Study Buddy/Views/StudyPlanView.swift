@@ -10,20 +10,53 @@ import CoreData
 
 struct StudyPlanView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var selectedNote: Note?
+    @State private var summaryResult: String = ""
+    @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: false)],
+        animation: .default
+    )
+    private var notes: FetchedResults<Note>
+
+    @State private var navigateToSummary = false
 
     var body: some View {
-        ZStack {
-            Color.white
-                .edgesIgnoringSafeArea(.all)
-
-            VStack{
-                Text("Scan Notes")
-                    .font(.system(size: 34, weight: .bold, design: .default))
-                    .foregroundColor(.black)
-                    .padding(.top, 20)
-                    .padding(.leading, 20)
-                Spacer()
-              }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        NavigationView {
+            List(notes) { note in
+                Button {
+                    selectedNote = note
+                    sendNoteToAPI(note: note, userId: loggedInUserId) { summary in
+                        DispatchQueue.main.async {
+                            if let summary = summary {
+                                self.summaryResult = summary
+                                self.navigateToSummary = true
+                            }
+                        }
+                    }
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text(note.title ?? "Untitled")
+                            .font(.system(size: 17, weight: .regular))
+                    }
+                }
+            }
+            .background(
+                NavigationLink(
+                    destination: Group {
+                        if let note = selectedNote {
+                            SummaryView(title: note.title ?? "Summary", summary: summaryResult)
+                        } else {
+                            EmptyView()
+                        }
+                    },
+                    isActive: $navigateToSummary,
+                    label: { EmptyView() }
+                )
+                .hidden()
+            )
+            .navigationTitle("Today's Study Plan")
         }
     }
 }
