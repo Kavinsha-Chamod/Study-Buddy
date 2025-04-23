@@ -11,20 +11,30 @@ import CoreData
 struct NewNoteView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var navigateToFiles = false
-    
+    @State private var showAlert = false
+    @FocusState private var isTextEditorFocused: Bool
+
     var note: Note?
     var currentUserId: String
-    
+
     var body: some View {
         NavigationView {
-            Form {
-                TextField("Title", text: $title)
-                TextEditor(text: $content)
-                    .frame(height: 300)
+            VStack {
+                Form {
+                    TextField("Title", text: $title)
+                        .focused($isTextEditorFocused)
+                    TextEditor(text: $content)
+                        .frame(height: 300)
+                        .focused($isTextEditorFocused)
+                }
+                .onTapGesture {
+                    hideKeyboard()
+                }
+
                 NavigationLink(
                     destination: FilesView(currentUserId: currentUserId),
                     isActive: $navigateToFiles
@@ -33,16 +43,20 @@ struct NewNoteView: View {
                 }.hidden()
             }
             .navigationTitle(note == nil ? "New Note" : "Edit Note")
-            
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        saveNote(for: currentUserId)
+                        if title.trimmingCharacters(in: .whitespaces).isEmpty ||
+                            content.trimmingCharacters(in: .whitespaces).isEmpty {
+                            showAlert = true
+                        } else {
+                            saveNote(for: currentUserId)
+                        }
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", role: .cancel) {
-                    dismiss()
+                        dismiss()
                     }
                 }
             }
@@ -52,9 +66,12 @@ struct NewNoteView: View {
                     content = note.content ?? ""
                 }
             }
+            .alert("Title and content cannot be empty.", isPresented: $showAlert) {
+                Button("OK", role: .cancel) {}
+            }
         }
     }
-    
+
     private func saveNote(for userID: String) {
         let noteToSave = note ?? Note(context: viewContext)
         noteToSave.id = noteToSave.id ?? UUID()
@@ -62,15 +79,19 @@ struct NewNoteView: View {
         noteToSave.content = content
         noteToSave.timestamp = Date()
         noteToSave.userId = userID
-        
+
         do {
             try viewContext.save()
             print("Note saved successfully")
             title = ""
             content = ""
+            dismiss()
         } catch {
             print("Failed to save note: \(error.localizedDescription)")
         }
     }
-    
+
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
