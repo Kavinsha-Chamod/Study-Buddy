@@ -15,7 +15,7 @@ func sendNoteToAPI(note: Note, userId: String, completion: @escaping (String?) -
         completion(nil)
         return
     }
-    let url = URL(string: "http://192.168.8.173:5001/api/summarize")!
+    let url = URL(string: "https://studdy-buddy-backend.vercel.app/api/summarize")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")

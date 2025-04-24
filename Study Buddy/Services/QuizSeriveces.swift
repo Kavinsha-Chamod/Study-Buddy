@@ -9,7 +9,7 @@ import Foundation
 
 struct QuizAPI {
     static func sendSummaryForQuiz(noteId: String, title: String, content: String, userId: String, completion: @escaping (Result<[[String: Any]], Error>) -> Void) {
-        let url = URL(string: "http://192.168.8.173:5001/api/quizzes/generate")!
+        let url = URL(string: "https://studdy-buddy-backend.vercel.app/api/quizzes/generate")!
         
         let payload: [String: Any] = [
             "noteId": noteId,
