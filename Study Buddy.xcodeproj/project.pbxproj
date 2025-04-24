@@ -577,6 +577,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -610,6 +611,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
