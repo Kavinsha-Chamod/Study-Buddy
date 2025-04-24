@@ -12,10 +12,12 @@ import CoreData
 struct StudyBuddyApp: App {
     let persistenceController = PersistenceController.shared
     @State private var hasCompletedFocusSetup: Bool = false
+    @StateObject var appNavigation = AppNavigation()
 
     var body: some Scene {
         WindowGroup {
             RootView(hasCompletedFocusSetup: $hasCompletedFocusSetup)
+                .environmentObject(appNavigation)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
                     loadFocusSetupState()
