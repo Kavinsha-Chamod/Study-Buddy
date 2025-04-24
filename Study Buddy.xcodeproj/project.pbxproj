@@ -72,6 +72,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Intents.intentdefinition,
+				Study_Buddy.xcdatamodeld,
 			);
 			target = 6D10D48E2DB4074A003AD386 /* CreateNoteIntent */;
 		};
@@ -79,6 +80,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Intents.intentdefinition,
+				Study_Buddy.xcdatamodeld,
 			);
 			target = 6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */;
 		};
@@ -577,6 +579,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
@@ -611,6 +614,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
