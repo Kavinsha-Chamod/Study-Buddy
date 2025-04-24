@@ -41,7 +41,7 @@ struct HomeView: View {
                         title: "Smart Quizzes",
                         imageName: "OnBoardIcon",
                         description: "Test your knowledge with AI-generated quizzes.",
-                        destination: AccountView()
+                        destination: SmartQuizzesView()
                     )
                     DashboardTitlesView(
                         title: "Import PDF Files",

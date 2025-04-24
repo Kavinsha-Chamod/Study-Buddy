@@ -11,6 +11,7 @@ import AuthenticationServices
 
 struct OnBoardView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) var colorScheme
     @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
     @State private var navigateToHome = false
     @Binding var hasCompletedFocusSetup: Bool
@@ -18,12 +19,11 @@ struct OnBoardView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.white.ignoresSafeArea()
                 VStack {
                     HeaderView()
                     OnboardImageView()
                     GuestButtonView(navigateToHome: $navigateToHome)
-                    AppleSignInButton(navigateToHome: $navigateToHome)
+                    AppleSignInButton(navigateToHome: $navigateToHome, colorScheme: colorScheme)
                     NavigationLink(destination: focusDestination) {
                         EmptyView()
                     }
@@ -47,7 +47,6 @@ struct OnBoardView: View {
         }
     }
 }
-
 // MARK: - Subviews
 
 private struct HeaderView: View {
@@ -55,11 +54,11 @@ private struct HeaderView: View {
         VStack(spacing: 8) {
             Text("Study Buddy")
                 .font(.system(size: 34, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
 
             Text("Your AI-Powered Study Companion")
                 .font(.system(size: 17))
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
         }
     }
 }
@@ -119,6 +118,7 @@ private struct GuestButtonView: View {
 
 private struct AppleSignInButton: View {
     @Binding var navigateToHome: Bool
+    let colorScheme: ColorScheme
     @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
 
     var body: some View {
@@ -148,7 +148,7 @@ private struct AppleSignInButton: View {
                 }
             }
         )
-        .signInWithAppleButtonStyle(.black)
+        .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
         .frame(height: 45)
         .cornerRadius(10)
         .padding(.top, 10)

@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreData
 
+import SwiftUI
+
 struct AccountView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("loggedInUserId") var currentUserId: String?
@@ -15,15 +17,9 @@ struct AccountView: View {
     @State private var hasCompletedFocusSetup: Bool = false
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
-                Color.white.ignoresSafeArea()
-
                 VStack(alignment: .leading) {
-                    Text("Account")
-                        .font(.system(size: 34, weight: .bold))
-                        .padding(.top, 20)
-
                     Spacer()
 
                     Button(action: logoutUser) {
@@ -46,6 +42,7 @@ struct AccountView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
+            .navigationTitle("Account")
         }
     }
 

@@ -59,7 +59,7 @@ struct MainTabView: View {
                     FilesView(currentUserId: currentUserId)
                         .tabItem {
                             Image(systemName: "folder.fill")
-                            Text("Files")
+                            Text("Notes")
                         }
                         .tag(3)
 
