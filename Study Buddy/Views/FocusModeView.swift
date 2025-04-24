@@ -7,48 +7,52 @@
 
 import SwiftUI
 import CoreData
+import UserNotifications
 
 struct FocusModeView: View {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.scenePhase) private var scenePhase
-    @State private var selectedDuration: Int? = nil
 
-    @State private var timeRemaining: Int = 0
+    @State private var selectedDuration: Int? = nil
     @State private var totalDuration: Int = 0
+    @State private var timeRemaining: Int = 0
     @State private var isCounting = false
     @State private var showEndFocusPrompt = false
-
     @State private var customDuration: Int = 15
     @State private var showSlider: Bool = false
+    @State private var focusStartDate: Date? = nil
 
-    let presetDurations = [15, 30, 50]
+    let presetDurations = [1, 30, 50]
 
     var body: some View {
         VStack(spacing: 30) {
             if !isCounting {
                 Text("How long do you want to focus?")
                     .font(.system(size: 17, weight: .medium))
-                    .padding(.trailing, 100)
                     .padding(.top)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                HStack(spacing: 15) {
-                    ForEach(presetDurations, id: \.self) { min in
-                        Button("\(min) min") {
-                            setTime(minutes: min)
-                            selectedDuration = min
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(presetDurations, id: \.self) { min in
+                            Button("\(min) min") {
+                                setTime(minutes: min)
+                                selectedDuration = min
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(selectedDuration == min ? .blue : .gray)
+                        }
+
+                        Button("Custom") {
+                            showSlider.toggle()
+                            if !showSlider {
+                                selectedDuration = nil
+                            }
                         }
                         .buttonStyle(.bordered)
-                        .tint(selectedDuration == min ? .blue : .gray)
+                        .tint(!presetDurations.contains(selectedDuration ?? 0) ? .blue : .gray)
                     }
-
-                    Button("Custom") {
-                        showSlider.toggle()
-                        if !showSlider {
-                            selectedDuration = nil
-                        }
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(!presetDurations.contains(selectedDuration ?? 0) ? .blue : .gray)
+                    .padding(.horizontal)
                 }
 
                 if showSlider {
@@ -98,7 +102,7 @@ struct FocusModeView: View {
             .frame(width: 250, height: 250)
 
             Button(action: toggleTimer) {
-                Text(isCounting ? "Pause" : "Start Focus")
+                Text(isCounting ? "Stop Focus" : "Start Focus")
                     .font(.headline)
                     .frame(maxWidth: .infinity)
             }
@@ -110,26 +114,28 @@ struct FocusModeView: View {
                 VStack(spacing: 15) {
                     Text("Want more time?")
                         .font(.system(size: 17, weight: .medium))
-                        .padding(.trailing, 210)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.black)
 
-                    HStack(spacing: 15) {
-                        ForEach(presetDurations, id: \.self) { min in
-                            Button("\(min) min") {
-                                extendTime(by: min)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(presetDurations, id: \.self) { min in
+                                Button("\(min) min") {
+                                    extendTime(by: min)
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.blue)
+                            }
+                            Button("Custom") {
+                                showSlider.toggle()
+                                if !showSlider {
+                                    selectedDuration = nil
+                                }
                             }
                             .buttonStyle(.bordered)
-                            .tint(.blue)
+                            .tint(!presetDurations.contains(selectedDuration ?? 0) ? .blue : .gray)
                         }
-                        Button("Custom") {
-                            showSlider.toggle()
-                            if !showSlider {
-                                selectedDuration = nil
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(!presetDurations.contains(selectedDuration ?? 0) ? .blue : .gray)
-                        
+                        .padding(.horizontal)
                     }
                 }
                 .transition(.slide)
@@ -138,49 +144,53 @@ struct FocusModeView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+            requestNotificationPermission()
+            loadOngoingTimer()
+        }
         .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
-            guard isCounting else { return }
-            if timeRemaining > 0 {
-                timeRemaining -= 1
-            } else if isCounting {
+            guard isCounting, let start = focusStartDate else { return }
+            let elapsed = Int(Date().timeIntervalSince(start))
+            let remaining = totalDuration - elapsed
+            if remaining > 0 {
+                timeRemaining = remaining
+            } else {
+                timeRemaining = 0
                 isCounting = false
                 showEndFocusPrompt = true
                 updateFocusSession()
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["FocusEnd"])
             }
         }
         .onChange(of: scenePhase) { phase in
-            if phase == .background {
-                let session = CountdownSession(context: context)
-                session.remainingTime = Int32(timeRemaining)
-                try? context.save()
-            } else if phase == .active {
-                let fetchRequest: NSFetchRequest<CountdownSession> = CountdownSession.fetchRequest()
-                if let session = try? context.fetch(fetchRequest).last, session.remainingTime > 0 {
-                    timeRemaining = Int(session.remainingTime)
-                }
+            if phase == .active {
+                loadOngoingTimer()
             }
-        }
-        .alert("Focus Ended", isPresented: $showEndFocusPrompt) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Your focus session has ended.")
         }
         .navigationTitle("Focus Mode")
     }
 
-    // MARK: - Helpers
+    // MARK: - Timer Logic
 
     private func setTime(minutes: Int) {
         totalDuration = minutes * 60
         timeRemaining = totalDuration
         isCounting = false
+        focusStartDate = nil
     }
 
     private func toggleTimer() {
-        isCounting.toggle()
-        if isCounting {
+        if !isCounting {
+            focusStartDate = Date()
             saveFocusSession()
+            sendStartNotification()
+            scheduleEndNotification(after: timeRemaining)
+        } else {
+            focusStartDate = nil
+            timeRemaining = totalDuration
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["FocusEnd"])
         }
+        isCounting.toggle()
     }
 
     private func extendTime(by minutes: Int) {
@@ -199,12 +209,13 @@ struct FocusModeView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 
+    // MARK: - Core Data
+
     private func saveFocusSession() {
         let session = CountdownSession(context: context)
         session.startDate = Date()
         session.duration = Int32(totalDuration)
         session.completed = false
-        session.remainingTime = Int32(timeRemaining)
         try? context.save()
     }
 
@@ -216,8 +227,75 @@ struct FocusModeView: View {
             try? context.save()
         }
     }
-}
 
+    private func loadOngoingTimer() {
+        let fetchRequest: NSFetchRequest<CountdownSession> = CountdownSession.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: false)]
+
+        if let session = try? context.fetch(fetchRequest).first,
+           let startDate = session.startDate,
+           !session.completed {
+
+            let elapsed = Int(Date().timeIntervalSince(startDate))
+            if elapsed < session.duration {
+                totalDuration = Int(session.duration)
+                timeRemaining = totalDuration - elapsed
+                focusStartDate = startDate
+                isCounting = true
+            } else {
+                session.completed = true
+                try? context.save()
+            }
+        }
+    }
+
+    // MARK: - Notifications
+
+    private func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if granted {
+                print("Notification permission granted.")
+            } else {
+                print("Notification permission denied.")
+            }
+        }
+    }
+
+    private func sendStartNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "🎯 Focus Session Started"
+        content.body = "Stay focused and do your best!"
+        content.sound = .default
+
+        let request = UNNotificationRequest(identifier: "FocusStart", content: content, trigger: nil)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Failed to send start notification: \(error.localizedDescription)")
+            } else {
+                print("Start notification sent")
+            }
+        }
+    }
+
+    private func scheduleEndNotification(after seconds: Int) {
+        let content = UNMutableNotificationContent()
+        content.title = "⏰ Focus Session Complete"
+        content.body = "Your focus session has ended. Great job!"
+        content.sound = .default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(seconds), repeats: false)
+        let request = UNNotificationRequest(identifier: "FocusEnd", content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Failed to schedule end notification: \(error.localizedDescription)")
+            } else {
+                print("End notification scheduled")
+            }
+        }
+    }
+}
 
 #Preview {
     FocusModeView()
