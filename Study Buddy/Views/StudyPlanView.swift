@@ -13,20 +13,20 @@ struct StudyPlanView: View {
     @State private var selectedNote: Note?
     @State private var summaryResult: String = ""
     @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
-    
-    @State private var today: Date = Date()
-    @State private var yesterday: Date = Date()
-    @State private var notes: [Note] = []
-
     @State private var navigateToSummary = false
-    private func calculateDates() {
-        let calendar = Calendar.current
-        self.today = calendar.startOfDay(for: Date())
-        self.yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+
+    private var notesRequest: FetchRequest<Note>
+    private var notes: FetchedResults<Note> { notesRequest.wrappedValue }
+
+    init() {
+        let request: NSFetchRequest<Note> = Note.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Note.timestamp, ascending: false)]
+        request.predicate = NSPredicate(format: "userId == %@", UserDefaults.standard.string(forKey: "loggedInUserId") ?? "")
+        
+        self.notesRequest = FetchRequest<Note>(fetchRequest: request, animation: .default)
     }
 
     var body: some View {
-        NavigationView {
             List(notes) { note in
                 Button {
                     selectedNote = note
@@ -39,19 +39,17 @@ struct StudyPlanView: View {
                         }
                     }
                 } label: {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text((note.title ?? "Untitled") + " Study Plan")
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundColor(.primary)
+                    VStack(alignment: .leading) {
+                        Text(note.title ?? "Untitled")
+                            .font(.system(size: 17, weight: .regular))
                     }
-                    .padding(5)
                 }
             }
             .background(
                 NavigationLink(
                     destination: Group {
                         if let note = selectedNote {
-                            SummaryView(title: note.title ?? "Summary", summary: summaryResult)
+                            SummaryView(note: note, title: note.title ?? "Summary", summary: summaryResult)
                         } else {
                             EmptyView()
                         }
@@ -61,31 +59,7 @@ struct StudyPlanView: View {
                 )
                 .hidden()
             )
-            .onAppear {
-                calculateDates()
-                fetchNotes()
-            }
             .navigationTitle("Today's Study Plan")
-        }
-    }
-
-    private func fetchNotes() {
-        let calendar = Calendar.current
-        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-
-        fetchRequest.predicate = NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@) AND (userId == %@)", argumentArray: [yesterday, today.addingTimeInterval(86400), loggedInUserId])
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Note.timestamp, ascending: false)]
-
-        do {
-            notes = try viewContext.fetch(fetchRequest)
-        } catch {
-            print("Failed to fetch notes: \(error.localizedDescription)")
-        }
+            .navigationBarTitleDisplayMode(.large)
     }
 }
-
-#Preview {
-    StudyPlanView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-}
-

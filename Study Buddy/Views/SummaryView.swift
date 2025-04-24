@@ -9,17 +9,31 @@ import SwiftUI
 import AVFoundation
 
 struct SummaryView: View {
+    var note: Note
     var title: String
     var summary: String
+
     @State private var synthesizer = AVSpeechSynthesizer()
     @State private var isSpeaking = false
     @State private var isPaused = false
+    @AppStorage("loggedInUserId") private var loggedInUserId: String = ""
+
+    @State private var navigateToQuiz = false
+    @State private var quizQuestions: [QuizQuestion] = []
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                Text(summary)
-                    .padding()
+            VStack {
+                ScrollView {
+                    Text(summary)
+                        .padding()
+                }
+
+                NavigationLink(
+                    destination: QuizView(noteTitle: title,questions: quizQuestions),
+                    isActive: $navigateToQuiz,
+                    label: { EmptyView() }
+                )
+                .hidden()
             }
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
@@ -38,12 +52,26 @@ struct SummaryView: View {
                     Spacer()
 
                     Button("Next") {
-                        print("Next tapped")
-                        // Add action here
+                        QuizAPI.sendSummaryForQuiz(
+                            noteId: note.id?.uuidString ?? "",
+                            title: title,
+                            content: summary,
+                            userId: loggedInUserId
+                        ) { result in
+                            switch result {
+                            case .success(let questions):
+                                DispatchQueue.main.async {
+                                    self.quizQuestions = self.mapToQuizQuestions(questions)
+                                    self.navigateToQuiz = true
+                                }
+                            case .failure(let error):
+                                print("Quiz API failed: \(error)")
+                            }
+                        }
                     }
                 }
             }
-        }
+        
         .onAppear {
             try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
             try? AVAudioSession.sharedInstance().setActive(true)
@@ -66,5 +94,17 @@ struct SummaryView: View {
         synthesizer.stopSpeaking(at: .immediate)
         isSpeaking = false
         isPaused = false
+    }
+
+    private func mapToQuizQuestions(_ questions: [[String: Any]]) -> [QuizQuestion] {
+        return questions.compactMap { questionDict in
+            if let question = questionDict["question"] as? String,
+               let options = questionDict["options"] as? [String],
+               let correctAnswer = questionDict["correctAnswer"] as? String {
+                return QuizQuestion(question: question, options: options, correctAnswer: correctAnswer)
+            } else {
+                return nil
+            }
+        }
     }
 }
