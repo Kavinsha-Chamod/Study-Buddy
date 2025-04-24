@@ -44,9 +44,9 @@ struct HomeView: View {
                         destination: SmartQuizzesView()
                     )
                     DashboardTitlesView(
-                        title: "Import PDF Files",
+                        title: "Import Notes",
                         imageName: "OnBoardIcon",
-                        description: "Import the pdf files and summarize contents.",
+                        description: "Import notes and summarize contents.",
                         destination: FilesView(currentUserId: currentUserId)
                     )
                     DashboardTitlesView(

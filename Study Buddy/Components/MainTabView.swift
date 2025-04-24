@@ -20,63 +20,71 @@ struct BlurView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
 
-
 struct MainTabView: View {
     @State private var selectedTab = 0
     var currentUserId: String
     @Binding var hasCompletedFocusSetup: Bool
-    
+
     var body: some View {
-        NavigationStack {
-            
-            ZStack {
-                // Add a blur effect to mimic polished UI
-                BlurView(style: .systemUltraThinMaterial)
-                    .ignoresSafeArea()
-                
-                TabView(selection: $selectedTab) {
+        ZStack {
+            BlurView(style: .systemUltraThinMaterial)
+                .ignoresSafeArea()
+
+            TabView(selection: $selectedTab) {
+                NavigationStack {
                     HomeView(hasCompletedFocusSetup: $hasCompletedFocusSetup)
-                        .tabItem {
-                            Image(systemName: "house.fill")
-                            Text("Home")
-                        }
-                        .tag(0)
-
-                    ScanDocView()
-                        .tabItem {
-                            Image(systemName: "document.viewfinder")
-                            Text("Scan Doc")
-                        }
-                        .tag(1)
-
-                    NewNoteView(currentUserId: currentUserId)
-                        .tabItem {
-                            Image(systemName: "document.badge.plus.fill")
-                            Text("New Note")
-                        }
-                        .tag(2)
-                    
-                    FilesView(currentUserId: currentUserId)
-                        .tabItem {
-                            Image(systemName: "folder.fill")
-                            Text("Notes")
-                        }
-                        .tag(3)
-
-                    AccountView()
-                        .tabItem {
-                            Image(systemName: "person.crop.circle.fill")
-                            Text("Account")
-                        }
-                        .tag(4)
                 }
-                .accentColor(.blue)
-            }.onAppear {
-                console()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+                .tag(0)
+
+                NavigationStack {
+                    ScanDocView()
+                }
+                .tabItem {
+                    Image(systemName: "document.viewfinder")
+                    Text("Scan Doc")
+                }
+                .tag(1)
+
+                NavigationStack {
+                    NewNoteView(currentUserId: currentUserId)
+                }
+                .tabItem {
+                    Image(systemName: "document.badge.plus.fill")
+                    Text("New Note")
+                }
+                .tag(2)
+
+                NavigationStack {
+                    FilesView(currentUserId: currentUserId)
+                }
+                .tabItem {
+                    Image(systemName: "folder.fill")
+                    Text("Notes")
+                }
+                .tag(3)
+
+                NavigationStack {
+                    AccountView()
+                }
+                .tabItem {
+                    Image(systemName: "person.crop.circle.fill")
+                    Text("Account")
+                }
+                .tag(4)
             }
-        }.navigationBarBackButtonHidden(true)
+            .accentColor(.blue)
+        }
+        .onAppear {
+            console()
+        }
+        .navigationBarBackButtonHidden(true)
     }
-    func console(){
-        print("User Id: currentUserId =", currentUserId ?? "nil")
+
+    func console() {
+        print("User Id: currentUserId =", currentUserId)
     }
 }
