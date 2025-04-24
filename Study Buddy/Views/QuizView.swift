@@ -15,6 +15,7 @@ struct QuizView: View {
     @State private var showResults = false
     @State private var score: Int = 0
     @State private var showCelebration = false
+    @State private var navigateToFlashcards = false
     @EnvironmentObject var appNavigation: AppNavigation
 
     var allAnswered: Bool {
@@ -22,7 +23,6 @@ struct QuizView: View {
     }
 
     var body: some View {
-
             ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
@@ -40,19 +40,36 @@ struct QuizView: View {
                 .navigationTitle(noteTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button(showResults ? "Done" : "Check Answers") {
-                            handleButtonTap()
-                        }
-                        .disabled(!showResults && !allAnswered)
-                    }
-                }
+                                // 🆕 Flashcard Button on Left Side
+                                ToolbarItem(placement: .bottomBar) {
+                                    HStack {
+                                        if showResults {
+                                            Button("Review with Flashcards") {
+                                                navigateToFlashcards = true
+                                            }
+                                        }
+
+                                        Spacer()
+
+                                        Button(showResults ? "Done" : "Check Answers") {
+                                            handleButtonTap()
+                                        }
+                                        .disabled(!showResults && !allAnswered)
+                                    }
+                                }
+                            }
 
                 if showCelebration {
                     celebrationOverlay
                 }
+                NavigationLink(
+                                destination: FlashcardsView(questions: questions),
+                                isActive: $navigateToFlashcards
+                            ) {
+                                EmptyView()
+                            }
+                            .hidden()
             }
-        
     }
 
     // MARK: - Components
