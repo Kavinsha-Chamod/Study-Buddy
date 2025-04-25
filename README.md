@@ -46,12 +46,13 @@ StudyBuddy is an iOS productivity app built with SwiftUI that helps students man
    git clone https://github.com/Kavinsha-Chamod/Study-Buddy.git
    cd Study-Buddy
 
-2.Open the project in Xcode:
-open Study-Buddy.xcodeproj
+2. Open the project in Xcode:open Study-Buddy.xcodeproj
 
 3. Set your development team and unique bundle identifier in Signing & Capabilities.
 
 4. Update QuizAPI.swift and any other networking files to use your hosted backend URL: let baseURL = "https://your-vercel-app.vercel.app"
+
+---
    
 ## 🌐 API Endpoints
 Node.js backend hosted on Vercel handles:
@@ -65,13 +66,17 @@ Example request format:
   "content": "Full note content here"
 }
 
+---
+
 ## 📲  Key Screens
-**NewNoteView** - Add new notes
-**FilesView** – Browse, pin, lock, update and delete notes
-**StudyPlanView** – View notes for the day and generate study materials
-**SummaryView** – Read AI-generated summaries, listen via text-to-speech
-**QuizView** – Attempt generated questions and flashcards
-**FocusModeView** – Timer with alert + notification for deep work
+- **NewNoteView** - Add new notes
+- **FilesView** – Browse, pin, lock, update and delete notes
+- **StudyPlanView** – View notes for the day and generate study materials
+- **SummaryView** – Read AI-generated summaries, listen via text-to-speech
+- **QuizView** – Attempt generated questions and flashcards
+- **FocusModeView** – Timer with alert + notification for deep work
+
+---
 
 ## 🧪 Testing
 ### Use a real device to test features like:
@@ -86,15 +91,21 @@ print("noteId: \(note.id?.uuidString ?? "nil")")
 print("title: \(title)")
 print("content: \(summary.prefix(100))...")
 
+---
+
 ## 📦 Backend Repo (Optional)
 If you're hosting your own or modifying the backend:
 **GitHub** : https://github.com/Kavinsha-Chamod/studdy-buddy-backend.git
 **Hosted on Vercel at**: https://your-vercel-app.vercel.app
 
+---
+
 ## 🙌 Credits
 OpenAI for GPT-based summarization
 Apple VisionKit & AVFoundation
 SwiftUI community & developers
+
+---
 
 ## 📄 License
 MIT License. Open to contributions and feature ideas!
