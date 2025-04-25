@@ -36,7 +36,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Create a note titled: ${title} with content: ${content}</string>
+					<string>Add a note in Study Buddy called ${title} that says ${content}.</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>2jbzjz</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
@@ -54,7 +54,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Create a note titled: ${title} with content: ${content}</string>
+					<string>Add a note in Study Buddy called ${title} that says ${content}.</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>4K1lkr</string>
 				</dict>
@@ -93,7 +93,7 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What should the content of the note be?
+							<string>What should the title of the note be?
 What should the content of the note be?
 What should the title of the note be?</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
@@ -154,7 +154,7 @@ What should the title of the note be?</string>
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What should the content of the note be?</string>
+							<string>What should be the content of the note?</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
 							<string>Artttk</string>
 							<key>INIntentParameterPromptDialogType</key>

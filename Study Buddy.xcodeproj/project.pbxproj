@@ -11,6 +11,8 @@
 		6D10D49D2DB4074A003AD386 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D10D49C2DB4074A003AD386 /* IntentsUI.framework */; };
 		6D10D4A72DB4074A003AD386 /* CreateNoteIntentUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6D10D4AA2DB4074A003AD386 /* CreateNoteIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6DCF92612DBBF8B8005BBC88 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DCF92602DBBF8B8005BBC88 /* Launch Screen.storyboard */; };
+		6DCF92622DBBF8B8005BBC88 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DCF92602DBBF8B8005BBC88 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,7 @@
 		6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CreateNoteIntentUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D10D49C2DB4074A003AD386 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		6D4654B62DABEA2500278E73 /* Study Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DCF92602DBBF8B8005BBC88 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -153,6 +156,7 @@
 		6D4654AD2DABEA2500278E73 = {
 			isa = PBXGroup;
 			children = (
+				6DCF92602DBBF8B8005BBC88 /* Launch Screen.storyboard */,
 				6D4654B82DABEA2500278E73 /* Study Buddy */,
 				6D10D4932DB4074A003AD386 /* CreateNoteIntent */,
 				6D10D49E2DB4074A003AD386 /* CreateNoteIntentUI */,
@@ -290,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DCF92612DBBF8B8005BBC88 /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DCF92622DBBF8B8005BBC88 /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,7 +589,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Studdy Buddy";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
@@ -618,7 +624,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Study-Buddy-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Studdy Buddy";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
