@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import AuthenticationServices
+import Security
 
 struct OnBoardView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -38,6 +39,7 @@ struct OnBoardView: View {
             }
         }
     }
+
     @ViewBuilder
     var focusDestination: some View {
         if hasCompletedFocusSetup {
@@ -46,7 +48,40 @@ struct OnBoardView: View {
             FocusSetupView(hasCompletedFocusSetup: $hasCompletedFocusSetup)
         }
     }
+
+    func saveUserIdToKeychain(userId: String) {
+        let keychainQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "group.com.note.temp",
+            kSecAttrAccount as String: "loggedInUserId",
+            kSecReturnData as String: kCFBooleanTrue!,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var itemCopy: AnyObject?
+        let status = SecItemCopyMatching(keychainQuery as CFDictionary, &itemCopy)
+        
+        if status == errSecItemNotFound || itemCopy == nil {
+            let newKeychainQuery: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: "group.com.note.temp",
+                kSecAttrAccount as String: "loggedInUserId",
+                kSecValueData as String: userId.data(using: .utf8)!
+            ]
+            
+            let addStatus = SecItemAdd(newKeychainQuery as CFDictionary, nil)
+            
+            if addStatus == errSecSuccess {
+                print("User ID saved to Keychain successfully.")
+            } else {
+                print("Failed to save User ID to Keychain. Error: \(addStatus)")
+            }
+        } else {
+            print("User ID already exists in Keychain, not updating.")
+        }
+    }
 }
+
 // MARK: - Subviews
 
 private struct HeaderView: View {
@@ -105,6 +140,7 @@ private struct GuestButtonView: View {
                 }
 
                 loggedInUserId = guestId
+                saveUserIdToKeychain(userId: guestId)
                 navigateToHome = true
 
             } catch {
@@ -113,8 +149,40 @@ private struct GuestButtonView: View {
         }
         .padding(.top, 30)
     }
-}
 
+    func saveUserIdToKeychain(userId: String) {
+        let keychainQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "group.com.note.temp", // Ensure this matches the app group ID
+            kSecAttrAccount as String: "loggedInUserId",
+            kSecReturnData as String: kCFBooleanTrue!,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var itemCopy: AnyObject?
+        let status = SecItemCopyMatching(keychainQuery as CFDictionary, &itemCopy)
+        
+        if status == errSecItemNotFound || itemCopy == nil {
+            // User ID does not exist in Keychain, so we add it
+            let newKeychainQuery: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: "group.com.note.temp", // Ensure this matches the app group ID
+                kSecAttrAccount as String: "loggedInUserId",
+                kSecValueData as String: userId.data(using: .utf8)!
+            ]
+            
+            let addStatus = SecItemAdd(newKeychainQuery as CFDictionary, nil)
+            
+            if addStatus == errSecSuccess {
+                print("User ID saved to Keychain successfully.")
+            } else {
+                print("Failed to save User ID to Keychain. Error: \(addStatus)")
+            }
+        } else {
+            print("User ID already exists in Keychain, not updating.")
+        }
+    }
+}
 
 private struct AppleSignInButton: View {
     @Binding var navigateToHome: Bool
@@ -134,13 +202,14 @@ private struct AppleSignInButton: View {
                         let userId = credential.user
                         let email = credential.email
                         let fullName = credential.fullName
-
+                        
                         print("User ID: \(userId)")
                         print("Email: \(email ?? "N/A")")
                         print("Full Name: \((fullName?.givenName ?? "") + " " + (fullName?.familyName ?? ""))")
-
+                        
                         saveUserToCoreData(id: userId, email: email, fullName: fullName)
                         loggedInUserId = userId
+                        saveUserIdToKeychain(userId: userId)
                         navigateToHome = true
                     }
                 case .failure(let error):
@@ -153,6 +222,38 @@ private struct AppleSignInButton: View {
         .cornerRadius(10)
         .padding(.top, 10)
         .padding(.horizontal, 30)
+    }
+    
+    func saveUserIdToKeychain(userId: String) {
+        let keychainQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "group.com.note.temp",
+            kSecAttrAccount as String: "loggedInUserId",
+            kSecReturnData as String: kCFBooleanTrue!,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var itemCopy: AnyObject?
+        let status = SecItemCopyMatching(keychainQuery as CFDictionary, &itemCopy)
+        
+        if status == errSecItemNotFound || itemCopy == nil {
+            let newKeychainQuery: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: "group.com.note.temp",
+                kSecAttrAccount as String: "loggedInUserId",
+                kSecValueData as String: userId.data(using: .utf8)!
+            ]
+            
+            let addStatus = SecItemAdd(newKeychainQuery as CFDictionary, nil)
+            
+            if addStatus == errSecSuccess {
+                print("User ID saved to Keychain successfully.")
+            } else {
+                print("Failed to save User ID to Keychain. Error: \(addStatus)")
+            }
+        } else {
+            print("User ID already exists in Keychain, not updating.")
+        }
     }
 
     func saveUserToCoreData(id: String, email: String?, fullName: PersonNameComponents?) {
@@ -180,5 +281,3 @@ private struct AppleSignInButton: View {
         }
     }
 }
-
-
