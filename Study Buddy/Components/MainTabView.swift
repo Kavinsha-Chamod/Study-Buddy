@@ -85,6 +85,6 @@ struct MainTabView: View {
     }
 
     func console() {
-        print("User Id: currentUserId =", currentUserId)
+        print("User Id:", currentUserId)
     }
 }

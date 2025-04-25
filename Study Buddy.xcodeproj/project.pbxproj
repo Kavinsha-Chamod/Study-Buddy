@@ -350,6 +350,7 @@
 		6D10D4AD2DB4074A003AD386 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntent/CreateNoteIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5MFCUG2773;
@@ -375,6 +376,7 @@
 		6D10D4AE2DB4074A003AD386 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntent/CreateNoteIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5MFCUG2773;
@@ -400,6 +402,7 @@
 		6D10D4B12DB4074A003AD386 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntentUI/CreateNoteIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5MFCUG2773;
@@ -425,6 +428,7 @@
 		6D10D4B22DB4074A003AD386 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntentUI/CreateNoteIntentUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5MFCUG2773;
