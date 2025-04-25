@@ -48,8 +48,8 @@ struct FilesView: View {
                     let filteredNotes = notes.filter { note in
                         (searchText.isEmpty || (note.title?.localizedCaseInsensitiveContains(searchText) ?? false)) &&
                         (filterOption == "All" ||
-                         (filterOption == "Scanned" && note.isScanned) ||
-                         (filterOption == "Imported" && note.isImported))
+                         (filterOption == "Scanned" && note.type == "scanned") ||
+                         (filterOption == "Imported" && note.type == "imported"))
                     }
                     
                     let pinnedNotes = filteredNotes.filter { $0.isPinned }

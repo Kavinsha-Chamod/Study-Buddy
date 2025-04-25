@@ -33,25 +33,25 @@ struct HomeView: View {
                 VStack {
                     DashboardTitlesView(
                         title: "Todays's Study Plan",
-                        imageName: "OnBoardIcon",
+                        imageName: "studying",
                         description: "Personalized plans based on your learning style and schedule.",
                         destination: StudyPlanView()
                     )
                     DashboardTitlesView(
                         title: "Smart Quizzes",
-                        imageName: "OnBoardIcon",
+                        imageName: "quiz",
                         description: "Test your knowledge with AI-generated quizzes.",
                         destination: SmartQuizzesView()
                     )
                     DashboardTitlesView(
                         title: "Import Notes",
-                        imageName: "OnBoardIcon",
+                        imageName: "notebook",
                         description: "Import notes and summarize contents.",
                         destination: FilesView(currentUserId: currentUserId)
                     )
                     DashboardTitlesView(
                         title: "Focus Mode",
-                        imageName: "OnBoardIcon",
+                        imageName: "anticipation",
                         description: "Set a timer for distraction-free study sessions.",
                         destination: hasCompletedFocusSetup
                                 ? AnyView(FocusModeView())
