@@ -30,6 +30,13 @@
 			remoteGlobalIDString = 6D10D48E2DB4074A003AD386;
 			remoteInfo = CreateNoteIntent;
 		};
+		6DCF92C32DBC11B5005BBC88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D4654AE2DABEA2500278E73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D4654B52DABEA2500278E73;
+			remoteInfo = "Study Buddy";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +61,7 @@
 		6D10D49C2DB4074A003AD386 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		6D4654B62DABEA2500278E73 /* Study Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DCF92602DBBF8B8005BBC88 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6DCF92BF2DBC11B5005BBC88 /* Study BuddyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Study BuddyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -115,6 +123,11 @@
 			path = "Study Buddy";
 			sourceTree = "<group>";
 		};
+		6DCF92C02DBC11B5005BBC88 /* Study BuddyTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Study BuddyTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +154,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DCF92BC2DBC11B5005BBC88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -160,6 +180,7 @@
 				6D4654B82DABEA2500278E73 /* Study Buddy */,
 				6D10D4932DB4074A003AD386 /* CreateNoteIntent */,
 				6D10D49E2DB4074A003AD386 /* CreateNoteIntentUI */,
+				6DCF92C02DBC11B5005BBC88 /* Study BuddyTests */,
 				6D10D4902DB4074A003AD386 /* Frameworks */,
 				6D4654B72DABEA2500278E73 /* Products */,
 			);
@@ -171,6 +192,7 @@
 				6D4654B62DABEA2500278E73 /* Study Buddy.app */,
 				6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */,
 				6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */,
+				6DCF92BF2DBC11B5005BBC88 /* Study BuddyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,6 +269,29 @@
 			productReference = 6D4654B62DABEA2500278E73 /* Study Buddy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6DCF92BE2DBC11B5005BBC88 /* Study BuddyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DCF92C72DBC11B5005BBC88 /* Build configuration list for PBXNativeTarget "Study BuddyTests" */;
+			buildPhases = (
+				6DCF92BB2DBC11B5005BBC88 /* Sources */,
+				6DCF92BC2DBC11B5005BBC88 /* Frameworks */,
+				6DCF92BD2DBC11B5005BBC88 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6DCF92C42DBC11B5005BBC88 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6DCF92C02DBC11B5005BBC88 /* Study BuddyTests */,
+			);
+			name = "Study BuddyTests";
+			packageProductDependencies = (
+			);
+			productName = "Study BuddyTests";
+			productReference = 6DCF92BF2DBC11B5005BBC88 /* Study BuddyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,6 +310,10 @@
 					};
 					6D4654B52DABEA2500278E73 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					6DCF92BE2DBC11B5005BBC88 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 6D4654B52DABEA2500278E73;
 					};
 				};
 			};
@@ -285,6 +334,7 @@
 				6D4654B52DABEA2500278E73 /* Study Buddy */,
 				6D10D48E2DB4074A003AD386 /* CreateNoteIntent */,
 				6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */,
+				6DCF92BE2DBC11B5005BBC88 /* Study BuddyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -313,6 +363,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DCF92BD2DBC11B5005BBC88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -337,6 +394,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DCF92BB2DBC11B5005BBC88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -349,6 +413,11 @@
 			isa = PBXTargetDependency;
 			target = 6D10D48E2DB4074A003AD386 /* CreateNoteIntent */;
 			targetProxy = 6D10D4A82DB4074A003AD386 /* PBXContainerItemProxy */;
+		};
+		6DCF92C42DBC11B5005BBC88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D4654B52DABEA2500278E73 /* Study Buddy */;
+			targetProxy = 6DCF92C32DBC11B5005BBC88 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -646,6 +715,42 @@
 			};
 			name = Release;
 		};
+		6DCF92C52DBC11B5005BBC88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-BuddyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Study Buddy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Study Buddy";
+			};
+			name = Debug;
+		};
+		6DCF92C62DBC11B5005BBC88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-BuddyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Study Buddy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Study Buddy";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -681,6 +786,15 @@
 			buildConfigurations = (
 				6D4654CA2DABEA2700278E73 /* Debug */,
 				6D4654CB2DABEA2700278E73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DCF92C72DBC11B5005BBC88 /* Build configuration list for PBXNativeTarget "Study BuddyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DCF92C52DBC11B5005BBC88 /* Debug */,
+				6DCF92C62DBC11B5005BBC88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
