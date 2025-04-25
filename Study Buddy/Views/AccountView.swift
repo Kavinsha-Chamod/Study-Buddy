@@ -8,40 +8,64 @@
 import SwiftUI
 import CoreData
 
-import SwiftUI
-
 struct AccountView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @AppStorage("loggedInUserId") var currentUserId: String?
     @State private var navigateToOnboard = false
     @State private var hasCompletedFocusSetup: Bool = false
 
+    private var fetchRequest: FetchRequest<User>
+    private var user: User? { fetchRequest.wrappedValue.first }
+
+    init() {
+        let predicate = NSPredicate(format: "id == %@", UserDefaults.standard.string(forKey: "loggedInUserId") ?? "")
+        self.fetchRequest = FetchRequest<User>(
+            entity: User.entity(),
+            sortDescriptors: [],
+            predicate: predicate
+        )
+    }
+
     var body: some View {
         NavigationView {
-            ZStack {
-                VStack(alignment: .leading) {
-                    Spacer()
+            VStack(spacing: 20) {
+                Spacer().frame(height: 40)
 
-                    Button(action: logoutUser) {
-                        Text("Log Out")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red)
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, 40)
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 10)
 
-                    // Navigation trigger
-                    NavigationLink(destination: OnBoardView(hasCompletedFocusSetup: $hasCompletedFocusSetup), isActive: $navigateToOnboard) {
-                        EmptyView()
-                    }
-                    .hidden()
+                Text(user?.firstName ?? "Unknown User")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+
+                Text(user?.email ?? "No email available")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+
+                Spacer()
+
+                Button(action: logoutUser) {
+                    Text("Log Out")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(12)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.horizontal)
+
+                NavigationLink(destination: OnBoardView(hasCompletedFocusSetup: $hasCompletedFocusSetup), isActive: $navigateToOnboard) {
+                    EmptyView()
+                }
+                .hidden()
+
+                Spacer().frame(height: 40)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("Account")
         }
     }
