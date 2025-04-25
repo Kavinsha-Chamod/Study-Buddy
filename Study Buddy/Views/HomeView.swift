@@ -7,63 +7,70 @@
 
 import SwiftUI
 import CoreData
-import AuthenticationServices
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    @AppStorage("loggedInUserId") private var currentUserId: String = ""
+    @Binding var hasCompletedFocusSetup: Bool
+    
     var body: some View {
         ZStack {
-            Color.white
-                .edgesIgnoringSafeArea(.all)
-            Text("Study Buddy")
-                .font(.system(size: 34, weight: .bold, design: .default))
-                .foregroundColor(.black)
-        }
-        .onAppear {
-            fetchUsers()
-        }
-        Button("Clear Users") {
-            clearAllUsers()
+            Image("Ellipse")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 300)
+                .padding(.bottom, 650)
+            VStack{
+                Text("Study Buddy")
+                    .font(.system(size: 34, weight: .bold, design: .default))
+                    .foregroundColor(.white)
+                    .padding(.top, 132)
+                    .padding(.leading, 20)
+                Spacer()
+                
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            ScrollView(showsIndicators: false){
+                VStack {
+                    DashboardTitlesView(
+                        title: "Todays's Study Plan",
+                        imageName: "studying",
+                        description: "Personalized plans based on your learning style and schedule.",
+                        destination: StudyPlanView()
+                    )
+                    DashboardTitlesView(
+                        title: "Smart Quizzes",
+                        imageName: "quiz",
+                        description: "Test your knowledge with AI-generated quizzes.",
+                        destination: SmartQuizzesView()
+                    )
+                    DashboardTitlesView(
+                        title: "Import Notes",
+                        imageName: "notebook",
+                        description: "Import notes and summarize contents.",
+                        destination: FilesView(currentUserId: currentUserId)
+                    )
+                    DashboardTitlesView(
+                        title: "Focus Mode",
+                        imageName: "anticipation",
+                        description: "Set a timer for distraction-free study sessions.",
+                        destination: hasCompletedFocusSetup
+                                ? AnyView(FocusModeView())
+                                : AnyView(FocusSetupView(hasCompletedFocusSetup: $hasCompletedFocusSetup))
+                    )
+                }
+            }.frame(maxWidth: .infinity)
+            .padding(.top, 140)
+            .padding(.vertical, 40)
         }
         .navigationBarBackButtonHidden(true)
     }
-
-    private func fetchUsers() {
-        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
-
-        do {
-            let users = try viewContext.fetch(fetchRequest)
-            for user in users {
-                print("==================================")
-                print("Saved User:")
-                print("• ID: \(user.id ?? "")")
-                print("• Email: \(user.email ?? "N/A")")
-                print("• Name: \((user.firstName ?? "") + " " + (user.lastName ?? ""))")
-                print("==================================")
+    private func loadFocusSetupState() {
+            let fetchRequest: NSFetchRequest<Settings> = Settings.fetchRequest()
+            if let settings = try? viewContext.fetch(fetchRequest).first {
+                hasCompletedFocusSetup = settings.hasCompletedFocusSetup
+                print("HomeView loaded: hasCompletedFocusSetup = \(hasCompletedFocusSetup)")
+            } else {
+                print("HomeView: No Settings entity found")
             }
-        } catch {
-            print("Failed to fetch users: \(error.localizedDescription)")
         }
-    }
-    
-    func clearAllUsers() {
-        let context = PersistenceController.shared.container.viewContext
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = User.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-            print("All users deleted successfully.")
-        } catch {
-            print("Failed to delete users: \(error.localizedDescription)")
-        }
-    }
-
-}
-
-#Preview {
-    HomeView()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
 }

@@ -6,19 +6,131 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6D10D4922DB4074A003AD386 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D10D4912DB4074A003AD386 /* Intents.framework */; };
+		6D10D49D2DB4074A003AD386 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D10D49C2DB4074A003AD386 /* IntentsUI.framework */; };
+		6D10D4A72DB4074A003AD386 /* CreateNoteIntentUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6D10D4AA2DB4074A003AD386 /* CreateNoteIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6D10D4A52DB4074A003AD386 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D4654AE2DABEA2500278E73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D10D49A2DB4074A003AD386;
+			remoteInfo = CreateNoteIntentUI;
+		};
+		6D10D4A82DB4074A003AD386 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D4654AE2DABEA2500278E73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D10D48E2DB4074A003AD386;
+			remoteInfo = CreateNoteIntent;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6D10D45E2DB3F481003AD386 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6D10D4AA2DB4074A003AD386 /* CreateNoteIntent.appex in Embed Foundation Extensions */,
+				6D10D4A72DB4074A003AD386 /* CreateNoteIntentUI.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CreateNoteIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D10D4912DB4074A003AD386 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CreateNoteIntentUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D10D49C2DB4074A003AD386 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		6D4654B62DABEA2500278E73 /* Study Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6D10D4AB2DB4074A003AD386 /* Exceptions for "CreateNoteIntent" folder in "CreateNoteIntent" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6D10D48E2DB4074A003AD386 /* CreateNoteIntent */;
+		};
+		6D10D4AF2DB4074A003AD386 /* Exceptions for "CreateNoteIntentUI" folder in "CreateNoteIntentUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */;
+		};
+		6D10D4B92DB40C1C003AD386 /* Exceptions for "Study Buddy" folder in "CreateNoteIntent" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Intents.intentdefinition,
+				Study_Buddy.xcdatamodeld,
+			);
+			target = 6D10D48E2DB4074A003AD386 /* CreateNoteIntent */;
+		};
+		6D10D4BA2DB40C1C003AD386 /* Exceptions for "Study Buddy" folder in "CreateNoteIntentUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Intents.intentdefinition,
+				Study_Buddy.xcdatamodeld,
+			);
+			target = 6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		6D10D4932DB4074A003AD386 /* CreateNoteIntent */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6D10D4AB2DB4074A003AD386 /* Exceptions for "CreateNoteIntent" folder in "CreateNoteIntent" target */,
+			);
+			path = CreateNoteIntent;
+			sourceTree = "<group>";
+		};
+		6D10D49E2DB4074A003AD386 /* CreateNoteIntentUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6D10D4AF2DB4074A003AD386 /* Exceptions for "CreateNoteIntentUI" folder in "CreateNoteIntentUI" target */,
+			);
+			path = CreateNoteIntentUI;
+			sourceTree = "<group>";
+		};
 		6D4654B82DABEA2500278E73 /* Study Buddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6D10D4B92DB40C1C003AD386 /* Exceptions for "Study Buddy" folder in "CreateNoteIntent" target */,
+				6D10D4BA2DB40C1C003AD386 /* Exceptions for "Study Buddy" folder in "CreateNoteIntentUI" target */,
+			);
 			path = "Study Buddy";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6D10D48C2DB4074A003AD386 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D10D4922DB4074A003AD386 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D10D4982DB4074A003AD386 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D10D49D2DB4074A003AD386 /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D4654B32DABEA2500278E73 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -29,10 +141,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D10D4902DB4074A003AD386 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D10D4912DB4074A003AD386 /* Intents.framework */,
+				6D10D49C2DB4074A003AD386 /* IntentsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6D4654AD2DABEA2500278E73 = {
 			isa = PBXGroup;
 			children = (
 				6D4654B82DABEA2500278E73 /* Study Buddy */,
+				6D10D4932DB4074A003AD386 /* CreateNoteIntent */,
+				6D10D49E2DB4074A003AD386 /* CreateNoteIntentUI */,
+				6D10D4902DB4074A003AD386 /* Frameworks */,
 				6D4654B72DABEA2500278E73 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				6D4654B62DABEA2500278E73 /* Study Buddy.app */,
+				6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */,
+				6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +174,50 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6D10D48E2DB4074A003AD386 /* CreateNoteIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D10D4AC2DB4074A003AD386 /* Build configuration list for PBXNativeTarget "CreateNoteIntent" */;
+			buildPhases = (
+				6D10D48B2DB4074A003AD386 /* Sources */,
+				6D10D48C2DB4074A003AD386 /* Frameworks */,
+				6D10D48D2DB4074A003AD386 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6D10D4932DB4074A003AD386 /* CreateNoteIntent */,
+			);
+			name = CreateNoteIntent;
+			packageProductDependencies = (
+			);
+			productName = CreateNoteIntent;
+			productReference = 6D10D48F2DB4074A003AD386 /* CreateNoteIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D10D4B02DB4074A003AD386 /* Build configuration list for PBXNativeTarget "CreateNoteIntentUI" */;
+			buildPhases = (
+				6D10D4972DB4074A003AD386 /* Sources */,
+				6D10D4982DB4074A003AD386 /* Frameworks */,
+				6D10D4992DB4074A003AD386 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6D10D49E2DB4074A003AD386 /* CreateNoteIntentUI */,
+			);
+			name = CreateNoteIntentUI;
+			packageProductDependencies = (
+			);
+			productName = CreateNoteIntentUI;
+			productReference = 6D10D49B2DB4074A003AD386 /* CreateNoteIntentUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		6D4654B52DABEA2500278E73 /* Study Buddy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D4654C92DABEA2700278E73 /* Build configuration list for PBXNativeTarget "Study Buddy" */;
@@ -55,10 +225,13 @@
 				6D4654B22DABEA2500278E73 /* Sources */,
 				6D4654B32DABEA2500278E73 /* Frameworks */,
 				6D4654B42DABEA2500278E73 /* Resources */,
+				6D10D45E2DB3F481003AD386 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6D10D4A62DB4074A003AD386 /* PBXTargetDependency */,
+				6D10D4A92DB4074A003AD386 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				6D4654B82DABEA2500278E73 /* Study Buddy */,
@@ -80,6 +253,12 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					6D10D48E2DB4074A003AD386 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					6D10D49A2DB4074A003AD386 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					6D4654B52DABEA2500278E73 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -100,11 +279,27 @@
 			projectRoot = "";
 			targets = (
 				6D4654B52DABEA2500278E73 /* Study Buddy */,
+				6D10D48E2DB4074A003AD386 /* CreateNoteIntent */,
+				6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6D10D48D2DB4074A003AD386 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D10D4992DB4074A003AD386 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D4654B42DABEA2500278E73 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +310,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6D10D48B2DB4074A003AD386 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D10D4972DB4074A003AD386 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D4654B22DABEA2500278E73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +333,124 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6D10D4A62DB4074A003AD386 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D10D49A2DB4074A003AD386 /* CreateNoteIntentUI */;
+			targetProxy = 6D10D4A52DB4074A003AD386 /* PBXContainerItemProxy */;
+		};
+		6D10D4A92DB4074A003AD386 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D10D48E2DB4074A003AD386 /* CreateNoteIntent */;
+			targetProxy = 6D10D4A82DB4074A003AD386 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		6D10D4AD2DB4074A003AD386 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntent/CreateNoteIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CreateNoteIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CreateNoteIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-Buddy.CreateNoteIntent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6D10D4AE2DB4074A003AD386 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntent/CreateNoteIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CreateNoteIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CreateNoteIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-Buddy.CreateNoteIntent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6D10D4B12DB4074A003AD386 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntentUI/CreateNoteIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CreateNoteIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CreateNoteIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-Buddy.CreateNoteIntentUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6D10D4B22DB4074A003AD386 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CreateNoteIntentUI/CreateNoteIntentUI.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5MFCUG2773;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CreateNoteIntentUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CreateNoteIntentUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kavinsha-chamod.Study-Buddy.CreateNoteIntentUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		6D4654C72DABEA2700278E73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -256,6 +582,11 @@
 				DEVELOPMENT_TEAM = 5MFCUG2773;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -286,6 +617,11 @@
 				DEVELOPMENT_TEAM = 5MFCUG2773;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Study-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan documents and extract text for your notes.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to secure your notes and protect your private information.";
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to create notes for you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -307,6 +643,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6D10D4AC2DB4074A003AD386 /* Build configuration list for PBXNativeTarget "CreateNoteIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D10D4AD2DB4074A003AD386 /* Debug */,
+				6D10D4AE2DB4074A003AD386 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D10D4B02DB4074A003AD386 /* Build configuration list for PBXNativeTarget "CreateNoteIntentUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D10D4B12DB4074A003AD386 /* Debug */,
+				6D10D4B22DB4074A003AD386 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6D4654B12DABEA2500278E73 /* Build configuration list for PBXProject "Study Buddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
