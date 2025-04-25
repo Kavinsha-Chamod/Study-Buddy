@@ -99,6 +99,7 @@ class CreateNoteIntentHandler: NSObject, CreateNoteIntentHandling {
             let note = Note(context: context)
             note.title = title
             note.content = content
+            note.type = "imported"
             note.timestamp = Date()
             note.userId = userId
             

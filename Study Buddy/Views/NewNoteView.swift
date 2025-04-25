@@ -77,6 +77,7 @@ struct NewNoteView: View {
         noteToSave.id = noteToSave.id ?? UUID()
         noteToSave.title = title
         noteToSave.content = content
+        noteToSave.type = ""
         noteToSave.timestamp = Date()
         noteToSave.userId = userID
 

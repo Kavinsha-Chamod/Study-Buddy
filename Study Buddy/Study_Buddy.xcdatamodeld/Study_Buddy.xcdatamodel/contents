@@ -18,6 +18,7 @@
         <attribute name="isScanned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="userId" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">

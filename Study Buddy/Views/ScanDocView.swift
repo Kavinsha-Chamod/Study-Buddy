@@ -104,6 +104,7 @@ struct ScanDocView: View {
         newNote.id = UUID()
         newNote.title = title
         newNote.content = content
+        newNote.type = "scanned"
         newNote.timestamp = Date()
         newNote.userId = loggedInUserId
 
